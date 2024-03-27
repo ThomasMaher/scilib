@@ -1,0 +1,13 @@
+<div>
+  <div class="papers">
+    <h2>Papers</h2>
+    <%= turbo_frame_tag "new_paper_frame" do %>
+      <%= link_to 'Add a paper', new_paper_path %>
+    <% end %>
+    <% @papers.each do |paper| %>
+      <div style="padding:5px">
+        <%= link_to paper[:title], paper_path(paper[:id]) %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div>
+  <div class="paper">
+    <h1><%= @paper[:title] %></h1>
+    <h5><%= @paper[:year] %>: <%= @paper[:publisher] %></h5>
+    <p><%= @paper[:content] %></p>
+  </div>
+
+  <%= link_to 'Full List', papers_path %>
+  <%= link_to 'Home', root_path %>
+</div>
