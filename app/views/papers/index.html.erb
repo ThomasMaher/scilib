@@ -1,13 +1,21 @@
 <div>
   <div class="papers">
     <h2>Papers</h2>
-    <%= turbo_frame_tag "new_paper_frame" do %>
-      <%= link_to 'Add a paper', new_paper_path %>
-    <% end %>
-    <% @papers.each do |paper| %>
-      <div style="padding:5px">
-        <%= link_to paper[:title], paper_path(paper[:id]) %>
-      </div>
+      <div>Adding paper</div>
+      <%= link_to 'Add a paper', new_paper_path, data: {turbo_frame: 'new_paper'} %>
+
+    <%= turbo_frame_tag 'new_paper' %>
+    <%= turbo_frame_tag 'papers' do %>
+      <% @papers.each do |paper| %>
+        <%= turbo_frame_tag paper do %>
+          <%= render 'papers/paper', paper: paper %>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
+
+  <br>
+  <br>
+  <%= link_to 'Projects', projects_path, data: {turbo: false} %>
+  <%= link_to 'Home', root_path, data: {turbo: false} %>
 </div>

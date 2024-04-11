@@ -1,44 +1,60 @@
 class PapersController < ApplicationController
+  before_action :set_project, only: [:create, :new]
+
+  helper_method :creating_project_paper?
+
+  def new
+    flash[:errors] = []
+    @paper = Paper.new
+  end
 
   def show
-    @paper = fetch_data_for(:papers)[params.permit(:id)[:id]]
+    @paper = Paper.find(params.permit(:id)[:id])
   end
 
   def index
-    @papers = fetch_data_for(:papers).values
-  end
-
-  def new
-    print('HELLLOLOOOOOOOOO')
-    print('%%%%%%%%%%%%%%%%%%%')
+    @papers = Paper.by_name
   end
 
   def create
-    count = get_count(fetch_data_for(:papers).values)
-    tab = '  '
-    id = (count.to_int + 1).to_s
-    data = [
-      "\n",
-      "#{tab+id}:",
-      "#{tab+tab}id: #{paper_params[:id]}",
-      "#{tab+tab}title: #{paper_params[:title]}",
-      "#{tab+tab}year: #{paper_params[:year]}",
-      "#{tab+tab}publisher: #{paper_params[:publisher]}",
-      "#{tab+tab}content: #{paper_params[:content]}",
-    ].join("\n")
-    File.write('../../config/data/papers.yml', data, mode: 'a')
+    record = creating_project_paper? ? ProjectPaper.new(project_id: @project.id, paper_attributes: paper_params) : Paper.new(paper_params)
+    @paper = creating_project_paper? ? record.paper : record
+    unless record.valid? && record.save!
+      flash[:errors] = @paper.errors.full_messages
+      render :new, status: :unprocessable_entity and return
+    end
 
-    redirect_to paper_path(id)
+    respond_to do |format|
+      format.turbo_stream
+      if creating_project_paper?
+        format.html { redirect_to project_path(@project) }
+      else
+        format.html { redirect_to papers_path(record) }
+      end
+    end
+  end
+
+  def destroy
+    @paper = Paper.find(params.permit(:id)[:id])
+    @paper.destroy!
+    respond_to do |format|
+      format.html { redirect_to papers_path }
+      format.turbo_stream
+    end
   end
 
 
   private
 
-  def paper_params
-    params.require(:paper_params).permit(:title, :year, :publisher, :content)
+  def creating_project_paper?
+    @project.present?
   end
 
-  def get_count(papers_list)
-    papers_list.max { |paper| paper[:id].to_int }[:id].to_int
+  def paper_params
+    params.require(:paper).permit(:title, :year_published, :publisher, :content, :pdf)
+  end
+
+  def set_project
+    @project = Project.find_by(id: params.permit(:project_id)[:project_id])
   end
 end

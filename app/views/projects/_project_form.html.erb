@@ -1,0 +1,5 @@
+<% form_for @project, url: projects_path, method: :post do |f| %>
+  <%= f.text_field :title %>
+  <%= f.submit "Create", data: {turbo_frame: '_top'} %>
+  <%= link_to 'Close', projects_path %>
+<% end %>

@@ -1,0 +1,7 @@
+<%= turbo_frame_tag @project do %>
+  <% form_for @project, url: project_path(@project.id), method: :patch do |f| %>
+    <%= f.text_field :title, value: @project.title, error: @errors&.title %>
+    <%= f.submit "Update" %>
+    <%= link_to 'Close', projects_path %>
+  <% end %>
+<% end %>

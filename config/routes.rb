@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "scilib#show"
 
-  resources :papers, only: [:new, :index, :show]
+  resources :papers
+  resources :projects do
+    resources :project_papers
+  end
 end

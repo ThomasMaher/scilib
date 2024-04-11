@@ -1,10 +1,35 @@
+<%= turbo_frame_tag "new_paper" do %>
+  <%= form_for @paper, method: :post do |f| %>
+    <% if flash[:errors].any? %>
+      <% flash[:errors].each do |error| %>
+        <h5><%= error %></h5>
+      <% end %>
+    <% end %>
+    <div>
+        <%= f.label :title, 'Title: ', error: flash[:errors] %>
+        <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :year_published, 'Year Published: ' %>
+      <%= f.text_field :year_published %>
+    </div>
+    <div>
+      <%= f.label :publisher, 'Publisher: ' %>
+      <%= f.text_field :publisher %>
+    </div>
+    <div>
+      <%= f.label :content, 'Description: ' %>
+      <%= f.text_area :content %>
+    </div>
+    <div>
+      <%= f.label :pdf, 'Upload paper: ' %>
+      <%= f.file_field :pdf %>
+    </div>
+    <div>
+      <%= f.submit "Create", data: {turbo_frame: 'new_paper'} %>
+    </div>
+    <%= hidden_field_tag :project_id, @project.presence&.id %>
+  <% end %>
 
-<%= turbo_frame_tag "new_paper_frame" do %>
-  <div>
-    <p>Here is a here a new paper will go</p>
-  </div>
+  <%= link_to 'Close', creating_project_paper? ? project_path(@project) : papers_path %>
 <% end %>
-
-<div>
-  <p>Some other content I don't want</p>
-</div>
