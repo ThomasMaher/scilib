@@ -1,4 +1,4 @@
 <div style="padding:5px">
-  <%= link_to paper.title, paper_path(paper.id), data: {turbo: false} %>
+  <%= link_to paper.title, paper_path(paper.id) %>
   <%= button_to 'Delete', paper, method: :delete %>
 </div>

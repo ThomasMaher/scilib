@@ -1,7 +1,7 @@
 class PapersController < ApplicationController
-  before_action :set_project, only: [:create, :new]
+  before_action :set_project
 
-  helper_method :creating_project_paper?
+  helper_method :nested_to_project?
 
   def new
     flash[:errors] = []
@@ -10,6 +10,8 @@ class PapersController < ApplicationController
 
   def show
     @paper = Paper.find(params.permit(:id)[:id])
+    @project_paper = @paper.project_paper_by_project(@project.id) if nested_to_project?
+    @notes = nested_to_project? ? @paper.project_notes(@project.id) : @paper.notes
   end
 
   def index
@@ -17,16 +19,15 @@ class PapersController < ApplicationController
   end
 
   def create
-    record = creating_project_paper? ? ProjectPaper.new(project_id: @project.id, paper_attributes: paper_params) : Paper.new(paper_params)
-    @paper = creating_project_paper? ? record.paper : record
+    record = nested_to_project? ? ProjectPaper.new(project_id: @project.id, paper_attributes: paper_params) : Paper.new(paper_params)
+    @paper = nested_to_project? ? record.paper : record
     unless record.valid? && record.save!
       flash[:errors] = @paper.errors.full_messages
       render :new, status: :unprocessable_entity and return
     end
 
     respond_to do |format|
-      format.turbo_stream
-      if creating_project_paper?
+      if nested_to_project?
         format.html { redirect_to project_path(@project) }
       else
         format.html { redirect_to papers_path(record) }
@@ -39,14 +40,14 @@ class PapersController < ApplicationController
     @paper.destroy!
     respond_to do |format|
       format.html { redirect_to papers_path }
-      format.turbo_stream
+      # format.turbo_stream
     end
   end
 
 
   private
 
-  def creating_project_paper?
+  def nested_to_project?
     @project.present?
   end
 

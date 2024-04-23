@@ -1,10 +1,8 @@
 <div>
   <div class="papers">
     <h2>Papers</h2>
-      <div>Adding paper</div>
-      <%= link_to 'Add a paper', new_paper_path, data: {turbo_frame: 'new_paper'} %>
 
-    <%= turbo_frame_tag 'new_paper' %>
+    <%= turbo_stream_from 'papers' %>
     <%= turbo_frame_tag 'papers' do %>
       <% @papers.each do |paper| %>
         <%= turbo_frame_tag paper do %>

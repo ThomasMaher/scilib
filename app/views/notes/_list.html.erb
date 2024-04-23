@@ -1,0 +1,7 @@
+<%= turbo_frame_tag 'notes' do %>
+  <% notes.each do |note| %>
+    <%= turbo_frame_tag note do %>
+      <%= render 'notes/note', note: note %>
+    <% end %>
+  <% end %>
+<% end %>

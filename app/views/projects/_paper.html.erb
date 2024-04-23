@@ -1,1 +1,2 @@
-<h5><%= link_to paper.title, paper_path(paper.id), data: {turbo: false} %></h5>
+<!-- TODO: Use stimulus to set the project when one is not available -->
+<h5><%= link_to paper.title, paper_path(paper.id, params: {project_id: @project&.id}), data: {turbo: false} %></h5>

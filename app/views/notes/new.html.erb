@@ -1,0 +1,25 @@
+<%= turbo_frame_tag "new_note" do %>
+  <%= form_for @note, url: project_paper_notes_path(@project_paper.id), method: :post do |f| %>
+    <%= render 'shared/display_errors' %>
+    <div>
+      <%= f.label :quote, 'Excerpt from paper' %>
+      <%= f.text_area :quote %>
+    </div>
+    <div>
+      <%= f.label :note, 'Note' %>
+      <%= f.text_area :note %>
+    </div>
+    <div>
+      <%= f.label :rank, 'Rank' %>
+      <%= f.text_field :rank %>
+    </div>
+    <div>
+      <%= f.label :category, 'Category' %>
+      <%= f.text_field :category %>
+    </div>
+    <div>
+      <%= f.submit 'Write Note', data: {turbo_frame_tag: '_top'} %>
+    </div>
+  <%end %>
+  <%= link_to 'Close', paper_path(@project_paper.paper, project_id: @project_paper.project&.id) %>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_11_201138) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_18_151019) do
   create_table "notes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "project_paper_id"
     t.integer "paper_id"
@@ -18,14 +18,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_11_201138) do
     t.text "note"
     t.integer "position"
     t.integer "rank"
-    t.string "type"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_notes_on_category"
     t.index ["paper_id"], name: "index_notes_on_paper_id"
     t.index ["position"], name: "index_notes_on_position"
     t.index ["project_paper_id"], name: "index_notes_on_project_paper_id"
     t.index ["rank"], name: "index_notes_on_rank"
-    t.index ["type"], name: "index_notes_on_type"
   end
 
   create_table "papers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|

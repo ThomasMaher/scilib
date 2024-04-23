@@ -1,10 +1,6 @@
 <%= turbo_frame_tag "new_paper" do %>
   <%= form_for @paper, method: :post do |f| %>
-    <% if flash[:errors].any? %>
-      <% flash[:errors].each do |error| %>
-        <h5><%= error %></h5>
-      <% end %>
-    <% end %>
+    <%= render 'shared/display_errors' %>
     <div>
         <%= f.label :title, 'Title: ', error: flash[:errors] %>
         <%= f.text_field :title %>
@@ -31,5 +27,5 @@
     <%= hidden_field_tag :project_id, @project.presence&.id %>
   <% end %>
 
-  <%= link_to 'Close', creating_project_paper? ? project_path(@project) : papers_path %>
+  <%= link_to 'Close', nested_to_project? ? project_path(@project) : papers_path %>
 <% end %>

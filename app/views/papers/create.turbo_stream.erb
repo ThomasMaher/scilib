@@ -1,6 +1,2 @@
-<%= turbo_stream.prepend(
-    "papers",
-    partial: creating_project_paper? ? 'projects/paper' : 'papers/paper',
-    locals: {paper: @paper}
-    ) %>
+<%= turbo_stream.prepend("papers", partial: nested_to_project? ? 'projects/paper' : 'papers/paper', locals: {paper: @paper}) %>
 <%= turbo_stream.update 'new_paper' %>

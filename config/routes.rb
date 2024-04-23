@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   resources :papers
   resources :projects do
-    resources :project_papers
+    resources :project_papers, only: [:create, :new, :destroy]
+  end
+
+  resources :project_papers, only: [] do
+    resources :notes, only: [:create, :edit, :new, :update, :destroy]
   end
 end

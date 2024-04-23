@@ -1,0 +1,4 @@
+<%= turbo_stream.update(
+    'new_note',
+    link_to('Add a note', new_project_paper_note_path(@project_paper), data: {turbo_frame: 'new_note'})
+) %>

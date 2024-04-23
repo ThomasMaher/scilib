@@ -1,0 +1,14 @@
+<div class="note">
+  <div style="display:flex;">
+    <div>
+      <%= note.category %>
+    </div>
+    <div>
+      <%= note.quote %>
+    </div>
+    <div>
+      <%= note.note %>
+    </div>
+    <%= button_to 'delete', project_paper_note_path(note.project_paper, note), method: :delete %>
+  </div>
+</div>
