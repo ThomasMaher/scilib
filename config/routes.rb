@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :papers
   resources :projects do
+    get :unlisted_papers
     resources :project_papers, only: [:create, :new, :destroy]
   end
 

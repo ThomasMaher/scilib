@@ -2,7 +2,8 @@
   <%= turbo_stream_from @project, 'project_papers' %>
   <div class="project">
     <h1><%= @project.title %></h1>
-    <%= link_to 'Add a paper', new_paper_path(params: {project_id: @project.id}), data: {turbo_frame: 'new_paper'} %>
+    <%= link_to 'Create a new paper', new_paper_path(params: {project_id: @project.id}), data: {turbo_frame: 'new_paper'} %>
+    <%= link_to 'Add an existing paper', project_unlisted_papers_path(@project), data: {turbo_frame: 'unlisted_papers'} %>
     <%= turbo_frame_tag 'new_paper' %>
     <%= turbo_frame_tag 'papers' do %>
       <% @project.papers.each do |paper| %>
@@ -17,4 +18,6 @@
   <br>
   <%= link_to 'Full List', projects_path %>
   <%= link_to 'Home', root_path %>
+
+  <%= turbo_frame_tag 'unlisted_papers' %>
 </div>

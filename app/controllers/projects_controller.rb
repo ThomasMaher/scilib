@@ -39,6 +39,11 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def unlisted_papers
+    project_paper_ids = @project&.papers.map(&:id)
+    @papers = Paper.by_name.reject { |paper| project_paper_ids.include?(paper.id) }
+  end
+
 
   private
 
@@ -47,6 +52,6 @@ class ProjectsController < ApplicationController
   end
 
   def set_project
-    @project = Project.find(params.permit(:id)[:id])
+    @project = Project.find_by(params.permit(:id)[:id] || params.permit(:project_id)[:project_id])
   end
 end

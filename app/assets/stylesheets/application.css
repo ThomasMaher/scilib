@@ -17,3 +17,45 @@
 .turbo-progress-bar {
     background: darkorange;
 }
+
+.pdf {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+}
+
+.pdf,
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h3 {
+    text-align: center;
+}
+
+h1 {
+    color: green;
+}
+
+.papers_modal {
+    position: absolute;
+    left: 25%;
+    padding: 20px;
+    width: 600px;
+    background: #e4e2e2;
+    border-radius: 8px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    height: 300px;
+    overflow: scroll
+}
+
+.modal-header {
+    text-align: center;
+}
+
+.papers_modal-list {
+    margin-bottom: 20px;
+}

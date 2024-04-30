@@ -145,6 +145,9 @@ GEM
     nokogiri (1.16.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    observer (0.1.2)
+    pdf2image (0.0.3)
+    pkg-config (1.5.6)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -199,6 +202,9 @@ GEM
     reline (0.5.0)
       io-console (~> 0.5)
     rexml (3.2.6)
+    rmagick (5.5.0)
+      observer (~> 0.1)
+      pkg-config (~> 1.4)
     rubyzip (2.3.2)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -250,9 +256,11 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   mysql2
+  pdf2image
   puma (>= 5.0)
   rails (~> 7.1.2)
   redis (>= 4.0.1)
+  rmagick
   selenium-webdriver
   sprockets-rails
   stimulus-rails

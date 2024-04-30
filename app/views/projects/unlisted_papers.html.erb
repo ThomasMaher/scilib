@@ -1,0 +1,16 @@
+<%= turbo_stream_from 'papers' %>
+
+<%= turbo_frame_tag 'unlisted_papers' do %>
+  <div class="papers_modal">
+    <h2 class="modal-header" data-controller="papers">Papers</h2>
+    <% @papers.each do |paper| %>
+      <div class="papers_modal-list">
+        <input type="checkbox" id=<%= "paper#{paper.id}" %> name=<%= "paper#{paper.id}" %>>
+        <label style="font-size:24px" class="papers_modal-label" for=<%= "paper#{paper.id}" %>><%= paper.title %></label><br>
+        <div>
+          <p style="margin:2px 0 0 33px;font-size:14px"><%= paper.year_published %>. <%= paper.publisher%></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

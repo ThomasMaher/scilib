@@ -1,21 +1,24 @@
-<%#= turbo_frame_tag '_top' do %>
-    <%= turbo_stream_from 'notes' %>
+  <%= turbo_stream_from 'notes' %>
 
-    <div>
-      <div class="paper">
+  <div>
+    <div class="paper">
+      <div style="text-align:center">
         <h1><%= @paper.title %></h1>
-        <h5><%= @paper.year_published %>: <%= @paper.publisher %></h5>
+        <h5><%= @paper.publisher %>: <%= @paper.year_published %></h5>
         <p><%= @paper.content %></p>
-        <%= turbo_frame_tag 'new_note' do %>
-          <% if nested_to_project? %>
-            <%= link_to 'Add a note', new_project_paper_note_path(@project_paper), data: {turbo_frame: 'new_note'} %>
-          <% end %>
+        <%# paper_pages(@paper.title).each do |i| %>
+          <%#= image_tag @paper_id + '/' + i.split('/')[-1], width: '900' %>
+        <%# end %>
+      </div>
+      <%= turbo_frame_tag 'new_note' do %>
+        <% if nested_to_project? %>
+          <%= link_to 'Add a note', new_project_paper_note_path(@project_paper), data: {turbo_frame: 'new_note'} %>
         <% end %>
-        </div>
+      <% end %>
+      </div>
 
-      <%= render 'notes/list', notes: @notes %>
+    <%= render 'notes/list', notes: @notes %>
 
-      <%= link_to 'Project papers', papers_path, data: {turbo: false} %>
-      <%= link_to 'Home', root_path, data: {turbo: false} %>
-    </div>
-<%# end %>
+    <%= link_to 'Project papers', papers_path, data: {turbo: false} %>
+    <%= link_to 'Home', root_path, data: {turbo: false} %>
+  </div>
