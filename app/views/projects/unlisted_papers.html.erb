@@ -2,15 +2,23 @@
 
 <%= turbo_frame_tag 'unlisted_papers' do %>
   <div class="papers_modal">
-    <h2 class="modal-header" data-controller="papers">Papers</h2>
-    <% @papers.each do |paper| %>
-      <div class="papers_modal-list">
-        <input type="checkbox" id=<%= "paper#{paper.id}" %> name=<%= "paper#{paper.id}" %>>
-        <label style="font-size:24px" class="papers_modal-label" for=<%= "paper#{paper.id}" %>><%= paper.title %></label><br>
-        <div>
-          <p style="margin:2px 0 0 33px;font-size:14px"><%= paper.year_published %>. <%= paper.publisher%></p>
+    <h2 class="modal-header">Papers</h2>
+    <p><%= flash[:message] %></p>
+    <%= form_for ProjectPaper.new, method: :post, url: project_add_papers_path(@project) do |f| %>
+      <input type="hidden" name="project_paper[paper_id][]">
+      <% @papers.each do |paper| %>
+        <div class="papers_modal-item">
+          <input type="checkbox"
+                 id=<%= "paper#{paper.id}" %>
+                 value=<%= paper.id %>
+                 name="project_paper[paper_id][]">
+          <label style="font-size:24px" class="papers_modal-label" for=<%= "paper#{paper.id}" %>><%= paper.title %></label><br>
+          <div>
+            <p style="margin:2px 0 0 33px;font-size:14px"><%= paper.year_published %>. <%= paper.publisher%></p>
+          </div>
         </div>
-      </div>
+      <% end %>
+      <%= f.submit 'Submit' %>
     <% end %>
   </div>
 <% end %>

@@ -20,8 +20,33 @@ class ProjectPapersController < ApplicationController
     end
   end
 
+  def add_papers
+    debugger
+    papers_params.empty? ? flash[:message] = 'No papers selected.' : nil
+
+    project_papers = papers_params.each do |paper_id|
+      break if flash[:message].present?
+      paper = Paper.find_by(id: paper_id)
+      flash[:message] = "No paper with id: #{paper_id}" and break if paper.nil?
+
+      project_paper = ProjectPaper.new(paper_id: paper_id, project_id: @project.id)
+      unless project_paper.valid?
+        flash[:message] = "Unable add papers."
+        flash[:errors] = project_paper.errors.full_messages
+      end
+      project_paper
+    end
+    project_papers.each { |p| p.save! } unless flash[:message].present?
+
+    redirect_to project_unlisted_papers_path(@project)
+  end
+
 
   private
+
+  def papers_params
+    params.require(:project_paper).permit(paper_id: [])[:paper_id].reject(&:empty?)
+  end
 
   def paper_params
     params.require(:paper).permit(:title, :year_published, :publisher, :content)

@@ -29,6 +29,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: #fbf7f0;
 }
 
 h1,
@@ -56,6 +57,6 @@ h1 {
     text-align: center;
 }
 
-.papers_modal-list {
+.papers_modal-item {
     margin-bottom: 20px;
 }
