@@ -6,9 +6,9 @@
         <h1><%= @paper.title %></h1>
         <h5><%= @paper.publisher %>: <%= @paper.year_published %></h5>
         <p><%= @paper.content %></p>
-        <%# paper_pages(@paper.title).each do |i| %>
-          <%#= image_tag @paper_id + '/' + i.split('/')[-1], width: '900' %>
-        <%# end %>
+        <% paper_pages(@paper.title).each do |i| %>
+          <%= image_tag @paper.title + '/' + i.split('/')[-1], width: '900' %>
+        <% end %>
       </div>
       <%= turbo_frame_tag 'new_note' do %>
         <% if nested_to_project? %>

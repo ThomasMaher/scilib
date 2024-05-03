@@ -52,6 +52,7 @@ class ProjectsController < ApplicationController
   end
 
   def set_project
-    @project = Project.find_by(params.permit(:id)[:id] || params.permit(:project_id)[:project_id])
+    project_id = params.permit(:id)[:id] || params.permit(:project_id)[:project_id]
+    @project = Project.find_by(id: project_id)
   end
 end

@@ -21,10 +21,9 @@ class ProjectPapersController < ApplicationController
   end
 
   def add_papers
-    debugger
     papers_params.empty? ? flash[:message] = 'No papers selected.' : nil
 
-    project_papers = papers_params.each do |paper_id|
+    project_papers = papers_params.map do |paper_id|
       break if flash[:message].present?
       paper = Paper.find_by(id: paper_id)
       flash[:message] = "No paper with id: #{paper_id}" and break if paper.nil?

@@ -9,7 +9,7 @@ module ApplicationHelper
     output_path = File.join(main_path, 'images', title)
     convert_pdf_to_png(main_path, "#{title}.pdf", output_path)
 
-    Dir.glob("app/assets/images/#{paper_id}/*.png")
+    Dir.glob("app/assets/images/#{title}/*.png")
   end
 
   def convert_pdf_to_png(main_path, pdf_name, output_path)
