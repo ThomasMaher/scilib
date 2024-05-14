@@ -24,10 +24,6 @@ module ApplicationHelper
     FileUtils.mkdir_p(output_path.to_s)
 
     pdf = Magick::ImageList.new(pdf_path)
-    if pdf.format == "PDF"
-      pdf.write(output_path + "/page" + ".png")
-    else
-      raise StandardError, "Please enter valid PDF file path!"
-    end
+    pdf.write(output_path + "/page" + ".png")
   end
 end

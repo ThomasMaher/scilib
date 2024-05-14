@@ -53,6 +53,20 @@ h1 {
     margin: auto;
 }
 
+.paper_container {
+    width: 35%;
+    margin: auto;
+}
+
+.note_tab {
+    height: 10px;
+    width: 22px;
+}
+
+.note_tab:hover {
+    background: #e3d1b3;
+}
+
 .modal-surface {
     width: 100%;
     position: absolute;
