@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   resources :project_papers, only: [] do
     resources :notes, only: [:create, :edit, :new, :update, :destroy]
   end
+  resources :notes, only: [:create]
 end

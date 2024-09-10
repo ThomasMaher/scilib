@@ -10,8 +10,14 @@ class PapersController < ApplicationController
 
   def show
     @paper = Paper.find(params.permit(:id)[:id])
-    @project_paper = @paper.project_paper_by_project(@project.id) if nested_to_project?
-    @notes = nested_to_project? ? @paper.project_notes(@project.id) : @paper.notes
+
+    respond_to do |format|
+      format.html do
+          @project_paper = @paper.project_paper_by_project(@project.id) if nested_to_project?
+          @notes = nested_to_project? ? @paper.project_notes(@project.id) : @paper.project_notes
+      end
+      format.json
+    end
   end
 
   def index

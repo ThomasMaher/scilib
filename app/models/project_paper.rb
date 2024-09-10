@@ -6,7 +6,6 @@ class ProjectPaper < ApplicationRecord
 
   scope :by_project, ->(project_id) { where(project_id: project_id) }
   scope :by_projects, -> { order(:project_id) }
-
   # broadcasts_to ->(project_paper,
   #                  partial: 'projects/paper',
   #                  target: 'papers',

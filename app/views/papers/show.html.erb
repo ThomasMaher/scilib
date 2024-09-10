@@ -6,14 +6,31 @@
         <h1><%= @paper.title %></h1>
         <h5><%= @paper.publisher %>: <%= @paper.year_published %></h5>
         <p><%= @paper.content %></p>
-        <div>
-          <div class="paper_container">
-            <% paper_pages(@paper.title).each do |i| %>
-              <%= image_tag @paper.title + '/' + i.split('/')[-1], width: '575' %>
-            <% end %>
+        <div class="paper_display" data-controller="paper">
+          <div>
+
           </div>
-          <div class="note_bar-right">
-            <div class="note_tab"></div>
+          <div class="paper_container">
+            <div>
+              <% paper_pages(@paper.title).each do |i| %>
+                <div style="display:flex;">
+                  <%= image_tag @paper.title + '/' + i.split('/')[-1], height: '800' %>
+                  <div class="note_bar-right">
+                    <% 80.times do |i| %>
+                      <%= button_to "",
+                                    new_project_paper_note_path(@project_paper, Note.new),
+                                    class: 'note_tab',
+                                    id: "note#{i}",
+                                    data: {action: "click->paper#addNote"}
+                      %>
+<!--                      <div class="note_tab" id=<%#= "note#{i}" %> data-action="click->paper#addNote"></div>-->
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div>
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 class Paper < ApplicationRecord
   has_many :project_papers, dependent: :destroy
   has_many :projects, through: :project_papers
-  has_many :notes, through: :project_papers
+  has_many :project_notes, through: :project_papers, class_name: :Note
+  has_many :unassigned_notes, -> { unassigned }, class_name: :Note
 
   scope :by_name, -> { order(:title) }
 

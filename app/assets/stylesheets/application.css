@@ -53,14 +53,30 @@ h1 {
     margin: auto;
 }
 
+.paper_display {
+    display: flex;
+}
+
+.paper_display > div {
+    width: 100%;
+}
+
 .paper_container {
-    width: 35%;
-    margin: auto;
+    display: flex;
 }
 
 .note_tab {
     height: 10px;
     width: 22px;
+    border-bottom: solid #e6d4b4 1px;
+    border-top: none;
+    border-right: solid #e6d4b4 1px;
+    border-left: none;
+    background: #fbf7f0;
+}
+
+.contains_note {
+    background: #e6d4b4
 }
 
 .note_tab:hover {

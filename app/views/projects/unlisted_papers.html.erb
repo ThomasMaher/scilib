@@ -7,7 +7,7 @@
         <div class="modal-menu">
           <div style="width:100px;"><%= f.submit 'Add Selected', disabled: true, data: {"select-target": 'add'} %></div>
           <h2 class="modal-header">Papers</h2>
-          <div  style="width:100px;text-align:right;"><%= link_to 'Close', project_path(@project) %></div>
+          <div style="width:100px;text-align:right;"><%= link_to 'Close', project_path(@project) %></div>
         </div>
         <p><%= flash[:message] %></p>
         <input type="hidden" name="project_paper[paper_id][]">

@@ -3,9 +3,12 @@ class Note < ApplicationRecord
   NO_RANK = RANKS[0]
   CATEGORIES = ['', 'highlight', 'question', 'disagreement', 'inspiration']
 
-  belongs_to :project_paper
+  belongs_to :project_paper, optional: true
+  belongs_to :paper
 
-  validates :project_paper_id, presence: true
+  scope :unassigned, -> { where(project_paper_id: nil) }
+
+  # validates :project_paper_id, presence: true
   validates :rank, inclusion: RANKS
   validates :category, inclusion: CATEGORIES
 

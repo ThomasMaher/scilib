@@ -9,12 +9,21 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(note_params)
-    @note.project_paper = @project_paper
+    @note.project_paper = @project_paper || nil
 
     flash[:errors] = @note.errors.full_messages unless @note.valid?
-    render :new, status: :unprocessable_entity and return unless @note.valid? && @note.save!
 
-    respond_to {|format| format.turbo_stream}
+    respond_to do |format|
+      format.json do
+        render json: {success: true} and return
+        @status = @note.valid? && @note.save! ? 'Success' : 'Failed'
+        render :show
+      end
+      format.turbo_stream do
+        debugger
+        render :new, status: :unprocessable_entity and return unless @note.valid? && @note.save!
+      end
+    end
   end
 
   def edit; end
@@ -38,6 +47,8 @@ class NotesController < ApplicationController
   end
 
   def set_project_paper
+    return unless params.permit(:project_paper_id).present?
+
     @project_paper = ProjectPaper.find_by(id: params.permit(:project_paper_id)[:project_paper_id])
   end
 end
