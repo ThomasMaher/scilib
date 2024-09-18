@@ -13,11 +13,20 @@ class ProjectsController < ApplicationController
 
   def create
     project = Project.new(project_params)
-    redirect_to project_path(project.id) and return if project.valid? && project.save!
+    respond_to do |format|
+      format.json do
+        render json: {success: true} and return if project.valid? && project.save!
 
-    flash[:error] = 'Unable to create project'
-    flash[:errors] = project.errors.full_messages
-    redirect_to projects_path
+        render json: {error: 'Unable to create project', errors: project.errors.full_messages}
+      end
+      format.html do
+        redirect_to project_path(project.id) and return if project.valid? && project.save!
+
+        flash[:error] = 'Unable to create project'
+        flash[:errors] = project.errors.full_messages
+        redirect_to projects_path
+      end
+    end
   end
 
   def edit; end
