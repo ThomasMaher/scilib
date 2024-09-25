@@ -41,9 +41,10 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy!
+    response = @project.destroy!
     respond_to do |format|
       format.html { redirect_to projects_path }
+      format.json render json: {success: true}, status: :ok and return if response[:success]
       format.turbo_stream
     end
   end

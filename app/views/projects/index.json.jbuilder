@@ -6,6 +6,8 @@ json.array! @projects.each do |project|
       json.id paper.id
       json.title paper.title
       json.year_published paper.year_published
+      json.publisher paper.publisher
+      json.content paper.content
     end
   end
 end

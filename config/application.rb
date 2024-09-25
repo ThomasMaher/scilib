@@ -23,5 +23,17 @@ module Scilib
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*' # Change '*' to a specific domain if you want to limit access
+        resource '*',
+                 headers: :any,
+                 methods: [:get, :post, :put, :patch, :delete, :options, :head],
+                 expose: ['Authorization'], # If you're using tokens
+                 max_age: 600
+      end
+    end
+
   end
 end
