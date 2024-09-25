@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.all
+    @projects = Project.all.includes(:papers)
   end
 
   def show; end
