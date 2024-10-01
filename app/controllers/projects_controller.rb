@@ -41,10 +41,17 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    response = @project.destroy!
+    response = @project.destroy!.destroyed?
     respond_to do |format|
       format.html { redirect_to projects_path }
-      format.json render json: {success: true}, status: :ok and return if response[:success]
+      format.json do
+        if response
+          @projects = Project.all.includes(:papers)
+          render :index and return
+        end
+
+        render json: {success: false, errors: @project.errors.full_messages}
+      end
       format.turbo_stream
     end
   end
