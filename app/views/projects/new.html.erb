@@ -1,7 +1,14 @@
 <%= turbo_frame_tag "new_project" do %>
-  <% form_for @project, url: projects_path, method: :post do |f| %>
-    <%= f.text_field :title, value: '' %>
-    <%= f.submit "Create", data: {turbo_frame: '_top'} %>
-    <%= link_to 'Close', projects_path %>
-  <% end %>
+  <div class="form-card">
+    <%= form_for @project, url: projects_path, method: :post do |f| %>
+      <div class="form-group">
+        <%= f.label :title, 'Project title' %>
+        <%= f.text_field :title, class: "form-control", value: '' %>
+      </div>
+      <div class="form-actions">
+        <%= f.submit "Create", class: "btn-primary", data: { turbo_frame: '_top' } %>
+        <%= link_to 'Cancel', projects_path, class: "btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
 <% end %>

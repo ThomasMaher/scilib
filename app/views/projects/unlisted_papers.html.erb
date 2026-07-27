@@ -5,25 +5,25 @@
     <div class="papers_modal" data-controller="select">
       <%= form_for ProjectPaper.new, method: :post, url: project_add_papers_path(@project) do |f| %>
         <div class="modal-menu">
-          <div style="width:100px;"><%= f.submit 'Add Selected', disabled: true, data: {"select-target": 'add'} %></div>
-          <h2 class="modal-header">Papers</h2>
-          <div  style="width:100px;text-align:right;"><%= link_to 'Close', project_path(@project) %></div>
+          <div><%= f.submit 'Add Selected', class: "btn-primary", disabled: true, data: { "select-target": 'add' } %></div>
+          <h2 class="modal-header">Add Papers</h2>
+          <div><%= link_to 'Close', project_path(@project), class: "btn-secondary" %></div>
         </div>
-        <p><%= flash[:message] %></p>
+        <% if flash[:message].present? %>
+          <p><%= flash[:message] %></p>
+        <% end %>
         <input type="hidden" name="project_paper[paper_id][]">
 
         <% @papers.each do |paper| %>
           <div class="papers_modal-item">
             <input type="checkbox"
-                  id=<%= "paper#{paper.id}" %>
-                  value=<%= paper.id %>
+                  id="<%= "paper#{paper.id}" %>"
+                  value="<%= paper.id %>"
                   data-action="select#toggle"
                   data-select-target="selector"
                   name="project_paper[paper_id][]">
-            <label style="font-size:24px" class="papers_modal-label" for=<%= "paper#{paper.id}" %>><%= paper.title %></label><br>
-            <div>
-              <p style="margin:2px 0 0 33px;font-size:14px"><%= paper.year_published %>. <%= paper.publisher%></p>
-            </div>
+            <label class="papers_modal-label" for="<%= "paper#{paper.id}" %>"><%= paper.title %></label>
+            <p class="papers_modal-meta"><%= paper.year_published %>. <%= paper.publisher %></p>
           </div>
         <% end %>
       <% end %>

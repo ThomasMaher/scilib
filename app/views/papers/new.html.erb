@@ -1,31 +1,32 @@
 <%= turbo_frame_tag "new_paper" do %>
-  <%= form_for @paper, method: :post do |f| %>
-    <%= render 'shared/display_errors' %>
-    <div>
-        <%= f.label :title, 'Title: ', error: flash[:errors] %>
-        <%= f.text_field :title %>
-    </div>
-    <div>
-      <%= f.label :year_published, 'Year Published: ' %>
-      <%= f.text_field :year_published %>
-    </div>
-    <div>
-      <%= f.label :publisher, 'Publisher: ' %>
-      <%= f.text_field :publisher %>
-    </div>
-    <div>
-      <%= f.label :content, 'Description: ' %>
-      <%= f.text_area :content %>
-    </div>
-    <div>
-      <%= f.label :pdf, 'Upload paper: ' %>
-      <%= f.file_field :pdf %>
-    </div>
-    <div>
-      <%= f.submit "Create", data: {turbo_frame: 'new_paper'} %>
-    </div>
-    <%= hidden_field_tag :project_id, @project.presence&.id %>
-  <% end %>
-
-  <%= link_to 'Close', nested_to_project? ? project_path(@project) : papers_path %>
+  <div class="form-card">
+    <%= form_for @paper, method: :post do |f| %>
+      <%= render 'shared/display_errors' %>
+      <div class="form-group">
+        <%= f.label :title, 'Title' %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :year_published, 'Year Published' %>
+        <%= f.text_field :year_published, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :publisher, 'Publisher' %>
+        <%= f.text_field :publisher, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :content, 'Description' %>
+        <%= f.text_area :content, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :pdf, 'Upload paper' %>
+        <%= f.file_field :pdf, class: "form-control" %>
+      </div>
+      <div class="form-actions">
+        <%= f.submit "Create", class: "btn-primary", data: { turbo_frame: 'new_paper' } %>
+        <%= link_to 'Cancel', nested_to_project? ? project_path(@project) : papers_path, class: "btn-secondary" %>
+      </div>
+      <%= hidden_field_tag :project_id, @project.presence&.id %>
+    <% end %>
+  </div>
 <% end %>

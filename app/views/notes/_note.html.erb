@@ -1,14 +1,19 @@
-<div class="note">
-  <div style="display:flex;">
-    <div>
-      <%= note.category %>
-    </div>
-    <div>
-      <%= note.quote %>
-    </div>
-    <div>
-      <%= note.note %>
-    </div>
-    <%= button_to 'delete', project_paper_note_path(note.project_paper, note), method: :delete %>
+<div class="note-card">
+  <div class="note-meta">
+    <% if note.category.present? %>
+      <span><strong>Category:</strong> <%= note.category %></span>
+    <% end %>
+    <% if note.rank.present? %>
+      <span><strong>Rank:</strong> <%= note.rank %></span>
+    <% end %>
+  </div>
+  <% if note.quote.present? %>
+    <div class="note-quote"><%= note.quote %></div>
+  <% end %>
+  <% if note.note.present? %>
+    <p><%= note.note %></p>
+  <% end %>
+  <div class="note-actions">
+    <%= button_to 'Delete', project_paper_note_path(note.project_paper, note), method: :delete %>
   </div>
 </div>

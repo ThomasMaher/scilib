@@ -1,33 +1,38 @@
 <%= turbo_frame_tag '_top' do %>
-  <div>
-    <div class="projects">
-      <h2>Projects</h2>
-      <% if flash[:error].present? %>
-        <h4><%= flash[:error] %></h4>
-        <% if flash[:errors] %>
-          <% flash[:errors].each do |err| %>
-            <div><%= err %></div>
-          <% end %>
-        <% end %>
-      <% end %>
-      <%= turbo_frame_tag "project" do %>
-        <%= link_to 'Add a project', new_project_path, data: {turbo_frame: 'new_project'} %>
-      <% end %>
-      <% @projects.each do |project| %>
-        <div style="padding:5px;display:flex">
-          <%= turbo_frame_tag project do %>
-            <%= link_to project.title, project_path(project.id), data: {turbo_frame: '_top'} %>
-            <%= link_to 'Edit', edit_project_path(project) %>
-            <%= button_to 'Delete', project, method: :delete %>
-          <% end %>
-        </div>
-      <% end %>
-      <%= turbo_frame_tag 'new_project' %>
-    </div>
+  <div class="page-header">
+    <h1>Projects</h1>
   </div>
 
-  <br>
-  <br>
-  <%= link_to 'Papers', papers_path, data: {turbo: false} %>
-  <%= link_to 'Home', root_path, data: {turbo: false} %>
+  <% if flash[:error].present? %>
+    <div class="flash-error">
+      <strong><%= flash[:error] %></strong>
+      <% if flash[:errors] %>
+        <% flash[:errors].each do |err| %>
+          <p><%= err %></p>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="page-actions">
+    <%= turbo_frame_tag "project" do %>
+      <%= link_to 'Add a project', new_project_path, class: "btn-primary", data: { turbo_frame: 'new_project' } %>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag 'new_project' %>
+
+  <div class="list">
+    <% @projects.each do |project| %>
+      <%= turbo_frame_tag project do %>
+        <div class="list-item">
+          <%= link_to project.title, project_path(project.id), class: "list-item-title", data: { turbo_frame: '_top' } %>
+          <div class="list-item-actions">
+            <%= link_to 'Edit', edit_project_path(project), class: "btn-secondary" %>
+            <%= button_to 'Delete', project, method: :delete %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>

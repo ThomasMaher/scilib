@@ -1,4 +1,6 @@
-<div style="padding:5px">
-  <%= link_to paper.title, paper_path(paper.id) %>
-  <%= button_to 'Delete', paper, method: :delete %>
+<div class="list-item">
+  <%= link_to paper.title, paper_path(paper.id), class: "list-item-title" %>
+  <div class="list-item-actions">
+    <%= button_to 'Delete', paper, method: :delete %>
+  </div>
 </div>

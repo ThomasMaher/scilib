@@ -11,6 +11,19 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header class="site-header">
+      <div class="container">
+        <%= link_to "Scilib", root_path, class: "site-logo" %>
+        <nav class="site-nav">
+          <%= link_to "Home", root_path %>
+          <%= link_to "Papers", papers_path %>
+          <%= link_to "Projects", projects_path %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <%= yield %>
+    </main>
   </body>
 </html>

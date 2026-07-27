@@ -1,23 +1,28 @@
-<div>
-  <%= turbo_stream_from @project, 'project_papers' %>
-  <div class="project">
-    <h1><%= @project.title %></h1>
-    <%= link_to 'Create a new paper', new_paper_path(params: {project_id: @project.id}), data: {turbo_frame: 'new_paper'} %>
-    <%= link_to 'Add an existing paper', project_unlisted_papers_path(@project), data: {turbo_frame: 'unlisted_papers'} %>
-    <%= turbo_frame_tag 'new_paper' %>
-    <%= turbo_frame_tag 'papers' do %>
-      <% @project.papers.each do |paper| %>
-        <%= turbo_frame_tag paper do %>
-          <%= render 'paper', paper: paper %>
-        <% end %>
+<div class="page-header">
+  <h1><%= @project.title %></h1>
+</div>
+
+<%= turbo_stream_from @project, 'project_papers' %>
+
+<div class="page-actions">
+  <%= link_to 'Create a new paper', new_paper_path(params: { project_id: @project.id }), class: "btn-primary", data: { turbo_frame: 'new_paper' } %>
+  <%= link_to 'Add an existing paper', project_unlisted_papers_path(@project), class: "btn-secondary", data: { turbo_frame: 'unlisted_papers' } %>
+</div>
+
+<%= turbo_frame_tag 'new_paper' %>
+
+<div class="list">
+  <%= turbo_frame_tag 'papers' do %>
+    <% @project.papers.each do |paper| %>
+      <%= turbo_frame_tag paper do %>
+        <%= render 'paper', paper: paper %>
       <% end %>
     <% end %>
-  </div>
-
-  <br>
-  <br>
-  <%= link_to 'Full List', projects_path %>
-  <%= link_to 'Home', root_path %>
-
-  <%= turbo_frame_tag 'unlisted_papers' %>
+  <% end %>
 </div>
+
+<div class="footer-nav">
+  <%= link_to 'All projects', projects_path %>
+</div>
+
+<%= turbo_frame_tag 'unlisted_papers' %>

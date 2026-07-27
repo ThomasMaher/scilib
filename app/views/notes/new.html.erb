@@ -1,25 +1,27 @@
 <%= turbo_frame_tag "new_note" do %>
-  <%= form_for @note, url: project_paper_notes_path(@project_paper.id), method: :post do |f| %>
-    <%= render 'shared/display_errors' %>
-    <div>
-      <%= f.label :quote, 'Excerpt from paper' %>
-      <%= f.text_area :quote %>
-    </div>
-    <div>
-      <%= f.label :note, 'Note' %>
-      <%= f.text_area :note %>
-    </div>
-    <div>
-      <%= f.label :rank, 'Rank' %>
-      <%= f.text_field :rank %>
-    </div>
-    <div>
-      <%= f.label :category, 'Category' %>
-      <%= f.text_field :category %>
-    </div>
-    <div>
-      <%= f.submit 'Write Note', data: {turbo_frame_tag: '_top'} %>
-    </div>
-  <%end %>
-  <%= link_to 'Close', paper_path(@project_paper.paper, project_id: @project_paper.project&.id) %>
+  <div class="form-card">
+    <%= form_for @note, url: project_paper_notes_path(@project_paper.id), method: :post do |f| %>
+      <%= render 'shared/display_errors' %>
+      <div class="form-group">
+        <%= f.label :quote, 'Excerpt from paper' %>
+        <%= f.text_area :quote, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :note, 'Note' %>
+        <%= f.text_area :note, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :rank, 'Rank' %>
+        <%= f.text_field :rank, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :category, 'Category' %>
+        <%= f.text_field :category, class: "form-control" %>
+      </div>
+      <div class="form-actions">
+        <%= f.submit 'Write Note', class: "btn-primary", data: { turbo_frame_tag: '_top' } %>
+        <%= link_to 'Cancel', paper_path(@project_paper.paper, project_id: @project_paper.project&.id), class: "btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
 <% end %>

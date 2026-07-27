@@ -1,19 +1,14 @@
-<div>
-  <div class="papers">
-    <h2>Papers</h2>
+<div class="page-header">
+  <h1>Papers</h1>
+</div>
 
-    <%= turbo_stream_from 'papers' %>
-    <%= turbo_frame_tag 'papers' do %>
-      <% @papers.each do |paper| %>
-        <%= turbo_frame_tag paper do %>
-          <%= render 'papers/paper', paper: paper %>
-        <% end %>
+<%= turbo_stream_from 'papers' %>
+<div class="list">
+  <%= turbo_frame_tag 'papers' do %>
+    <% @papers.each do |paper| %>
+      <%= turbo_frame_tag paper do %>
+        <%= render 'papers/paper', paper: paper %>
       <% end %>
     <% end %>
-  </div>
-
-  <br>
-  <br>
-  <%= link_to 'Projects', projects_path, data: {turbo: false} %>
-  <%= link_to 'Home', root_path, data: {turbo: false} %>
+  <% end %>
 </div>
